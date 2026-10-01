@@ -24,6 +24,7 @@ import nitis.gravillaso.world.blocks.defense.*;
 import nitis.gravillaso.world.blocks.distribution.*;
 import nitis.gravillaso.world.blocks.environment.*;
 import nitis.gravillaso.world.blocks.liquid.*;
+import nitis.gravillaso.world.blocks.logic.*;
 import nitis.gravillaso.world.blocks.power.*;
 import nitis.gravillaso.world.blocks.production.*;
 import nitis.gravillaso.world.blocks.storage.*;
@@ -74,6 +75,7 @@ public class GrBlocks{
     // units
     // payloads
     // logic
+    public static Block binaryWire;
     // campaign
 
     public static void load(){
@@ -624,6 +626,15 @@ public class GrBlocks{
 
             limitRange();
         }};*/
+        // endregion
+
+        // region logic
+        // TODO[lowest-priority]: implement
+        binaryWire = new BinaryWire("binary-wire"){{
+            requirements(Category.logic, with(cobalt, 5, silicon, 1)); // TODO: gold?
+            size = 1;
+            buildVisibility = BuildVisibility.hidden;
+        }};
         // endregion
     }
 }
