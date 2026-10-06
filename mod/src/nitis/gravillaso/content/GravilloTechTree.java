@@ -100,6 +100,9 @@ public class GravilloTechTree{
             // 4-leg walkers units
             // hover-ground units
             // air-bee like support? units
+            node(walkerFactory, () -> {
+                node(offense);
+            });
 
             // sectors
 //            node(negativeOnCelsius, () -> {

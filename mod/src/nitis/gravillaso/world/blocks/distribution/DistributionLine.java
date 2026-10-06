@@ -210,7 +210,6 @@ public class DistributionLine extends Block implements Autotiler{
         }
 
         protected void drawLines(){
-            // TODO: replace lines with sprites for faster drawing?
             Lines.stroke(1f, lineColor);
 
             final float halfSize = tilesize / 2f;
@@ -250,7 +249,7 @@ public class DistributionLine extends Block implements Autotiler{
                     }else{ //else, only 3 bits
                         //it's hard to explain
                         //tldr: returns first index of zero
-                        int forkDir = Integer.numberOfTrailingZeros(~blendprox & 0xF) + ((blendprox & 0b1) == 0b1 ? rotation : rotation + 2);
+                        int forkDir = Integer.numberOfTrailingZeros(~blendprox & 0xF) + rotation + (blendprox == 11 ? 2 : 0); // 13 is a very magic number
                         int left = forkDir - 1;
                         int right = forkDir + 1;
 

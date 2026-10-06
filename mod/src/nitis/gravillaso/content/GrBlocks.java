@@ -17,6 +17,7 @@ import mindustry.world.blocks.distribution.*;
 import mindustry.world.blocks.environment.*;
 import mindustry.world.blocks.liquid.*;
 import mindustry.world.blocks.production.*;
+import mindustry.world.blocks.units.*;
 import mindustry.world.draw.*;
 import mindustry.world.meta.*;
 import nitis.gravillaso.graphics.*;
@@ -73,6 +74,7 @@ public class GrBlocks{
     // turrets
     public static Block sight, destiny, voltum, lighter, finale;
     // units
+    public static Block walkerFactory;
     // payloads
     // logic
     public static Block binaryWire;
@@ -626,6 +628,20 @@ public class GrBlocks{
 
             limitRange();
         }};*/
+        // endregion
+
+        // region units
+        walkerFactory = new UnitFactory("walker-factory"){{
+            requirements(Category.units, with(cobalt, 200, silicon, 170));
+            size = 3;
+            configurable = false;
+            plans.add(
+            new UnitPlan(GrUnitTypes.offense, Time.toSeconds * 30f, with(cobalt, 40, silicon, 45))
+            );
+            regionSuffix = "-frost-resistant";
+            fogRadius = 3;
+            consumePower(1.2f);
+        }};
         // endregion
 
         // region logic
