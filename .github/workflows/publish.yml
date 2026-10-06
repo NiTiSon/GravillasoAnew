@@ -1,0 +1,36 @@
+name: Publish Release
+
+on:
+  push:
+    tags: ["*"]
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up PATH
+      run: |
+        echo "${ANDROID_HOME}/build-tools/34.0.0" >> $GITHUB_PATH
+    - name: Set up JDK 17
+      uses: actions/setup-java@v5
+      with:
+        distribution: 'temurin'
+        java-version: 17
+    - name: Build mod jars
+      run: |
+        chmod +x ./gradlew
+        ./gradlew deploy
+    - name: Publish release
+      env:
+        GH_TOKEN: ${{ github.token }}
+      run: |
+        gh release create "$GITHUB_REF_NAME" \
+          --verify-tag \
+          --generate-notes \
+          mod/build/libs/GravillasoAnew.jar \
+          mod/build/libs/GravillasoAnewDesktop.jar
