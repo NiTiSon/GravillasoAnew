@@ -7,6 +7,7 @@ import mindustry.content.*;
 import mindustry.entities.*;
 import mindustry.entities.bullet.*;
 import mindustry.entities.effect.*;
+import mindustry.entities.part.*;
 import mindustry.gen.*;
 import mindustry.graphics.*;
 import mindustry.type.*;
@@ -503,7 +504,19 @@ public class GrBlocks{
 
             shake = 1f;
             ammoPerShot = 2;
-            drawer = new DrawTurret("frost-resistant-");
+            drawer = new DrawTurret("frost-resistant-"){{
+                parts.add(new RegionPart("-side"){{
+                    progress = PartProgress.warmup;
+                    moveX = 0.6f;
+                    moveRot = -15f;
+                    mirror = true;
+                    layerOffset = 0.001f;
+                    moves.add(new PartMove(PartProgress.recoil, 0.5f, -0.5f, -8f));
+                }}, new RegionPart("-barrel"){{
+                    progress = PartProgress.recoil;
+                    moveY = -2.5f;
+                }});
+            }};
             shootY = -1.5f;
             outlineColor = GrPal.outline;
             size = 2;
