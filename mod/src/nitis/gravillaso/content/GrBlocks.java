@@ -480,15 +480,15 @@ public class GrBlocks{
         sight = new ItemTurret("sight"){{
             requirements(Category.turret, with(cobalt, 100, lead, 80));
 
-            Effect sfe = new MultiEffect(Fx.shootSmallColor, Fx.colorSpark);
+            Effect sfe = new MultiEffect(Fx.shootBigColor, Fx.colorSpark);
 
             ammo(
-            cobalt, new BasicBulletType(7.5f, 85){{
-                width = 12f;
+            cobalt, new BasicBulletType(7.5f, 65){{
+                width = 8f;
                 hitSize = 7f;
-                height = 20f;
+                height = 15f;
                 shootEffect = sfe;
-                smokeEffect = Fx.shootBigSmoke;
+                smokeEffect = Fx.shootSmallSmoke;
                 ammoMultiplier = 1;
                 pierceCap = 2;
                 pierce = true;
@@ -504,7 +504,7 @@ public class GrBlocks{
 
             shake = 1f;
             ammoPerShot = 2;
-            drawer = new DrawTurret("frost-resistant-"){{
+            drawer = new DrawFrostTurret(){{
                 parts.add(new RegionPart("-side"){{
                     progress = PartProgress.warmup;
                     moveX = 0.6f;
@@ -517,18 +517,20 @@ public class GrBlocks{
                     moveY = -2.5f;
                 }});
             }};
-            shootY = -1.5f;
+            shootY = 2.3f;
             outlineColor = GrPal.outline;
             size = 2;
-            reload = 40f;
-            recoil = 2f;
+            reload = 90f;
+            shoot.shots = 2;
+            shoot.shotDelay = 20f;
+            recoil = 1.5f;
             range = 150;
             shootCone = 3f;
-            scaledHealth = 180;
-            rotateSpeed = 2f;
-            researchCostMultiplier = 0.05f;
+            scaledHealth = 220;
+            rotateSpeed = 3.5f;
 
             limitRange();
+            researchCostMultiplier = 0.05f;
         }};
 
         voltum = new PowerTurret("voltum"){{

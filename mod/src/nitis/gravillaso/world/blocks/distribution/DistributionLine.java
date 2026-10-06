@@ -317,6 +317,7 @@ public class DistributionLine extends Block implements Autotiler{
             if(bits[0] == 0 && blends(tile, rotation, 0) && (!blends(tile, rotation, 2) || back() instanceof DistributionLineBuild b && b.state == stateUnload)) state = stateLoad;  // a 0 that faces into a conveyor with none behind it
             if(!(front() instanceof DistributionLineBuild)) state = stateUnload; // a 0 that faces into none with a conveyor behind it
 
+            // TODO: This algorithm is a shit, need to come up with something better
             int inputs = 0, inputMask = 0;
             int outputs = 0;
             outputMask = 0;
@@ -336,6 +337,7 @@ public class DistributionLine extends Block implements Autotiler{
             if(inputs >= 2 && outputs >= 2 && !oppositeInputs){
                 state = stateJunction;
             }else if(inputs >= 1 && outputs >= 2){
+                Log.debug("state fork @x@, i@, o@", x, y, inputs, outputs);
                 state = stateFork;
             }
 

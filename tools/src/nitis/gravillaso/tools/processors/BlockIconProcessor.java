@@ -58,12 +58,16 @@ public class BlockIconProcessor implements SpriteProcessor{
 
         for(TextureRegion region : toOutline){
             Pixmap pix = get(region);
-            if(pix != null) save(pix.outline(block.outlineColor, block.outlineRadius), name(region) + "-outline", SpriteProcessor.outlineFile(name(region) + "-outline"));
+            if(pix != null){
+                save(pix.outline(block.outlineColor, block.outlineRadius), outlineName(region) + "-outline", SpriteProcessor.outlineFile(outlineName(region) + "-outline"));
+            }
         }
 
         for(TextureRegion region : block.makeIconRegions()){
             Pixmap pix = get(region);
-            if(pix != null) save(pix.outline(block.outlineColor, block.outlineRadius), name(region) + "-outline", SpriteProcessor.outlineFile(name(region) + "-outline"));
+            if(pix != null){
+                save(pix.outline(block.outlineColor, block.outlineRadius), outlineName(region) + "-outline", SpriteProcessor.outlineFile(outlineName(region) + "-outline"));
+            }
         }
 
         Pixmap shardTeamTop = null;
@@ -152,6 +156,13 @@ public class BlockIconProcessor implements SpriteProcessor{
 
     private static String name(TextureRegion region){
         return ((AtlasRegion)region).name;
+    }
+
+    private static String outlineName(TextureRegion region){
+        String name = ((AtlasRegion)region).name;
+
+        if (name.startsWith("gr-")) name = name.substring(3);
+        return name;
     }
 
     private static void save(Pixmap pixmap, String name){
