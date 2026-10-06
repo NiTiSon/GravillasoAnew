@@ -1,6 +1,8 @@
 package nitis.gravillaso.content;
 
 import arc.struct.*;
+import mindustry.game.*;
+import mindustry.game.Objectives.*;
 import mindustry.type.*;
 import nitis.gravillaso.core.*;
 import nitis.gravillaso.core.GrObjectives.*;
@@ -12,6 +14,7 @@ import static nitis.gravillaso.content.GrBlocks.*;
 import static nitis.gravillaso.content.GrItems.*;
 import static nitis.gravillaso.content.GrLiquids.*;
 import static nitis.gravillaso.content.GrUnitTypes.*;
+import static nitis.gravillaso.content.GrSectorPresets.*;
 
 public class GravilloTechTree{
     public static void load() {
@@ -43,11 +46,7 @@ public class GravilloTechTree{
             context().researchCostMultipliers = costMultipliers;
 
             // distribution
-            node(cobaltConveyor, () -> {
-                // TODO: junction
-                node(cobaltRouter, () -> {
-
-                });
+            node(distributionLine, () -> {
                 node(maglevConveyor, () -> {
 
                 });
@@ -79,7 +78,7 @@ public class GravilloTechTree{
             });
 
             // cores
-            node(draugDrone, ItemStack.with(cobalt, 1500, lead, 1000), () -> {
+            node(draugDrone, ItemStack.with(cobalt, 1500, lead, 1000), Seq.with(new SectorComplete(init)), () -> {
 //            node(coreTier2, () -> {
 //                node(coreTier3, () -> {
 //
@@ -105,9 +104,9 @@ public class GravilloTechTree{
             });
 
             // sectors
-//            node(negativeOnCelsius, () -> {
-//
-//            });
+            node(init, () -> {
+
+            });
 
             // items
             // THE ORDER WILL CHANGE 100%

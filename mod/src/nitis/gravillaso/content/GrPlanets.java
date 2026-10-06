@@ -37,7 +37,7 @@ public class GrPlanets {
             drawOrbit = true;
 
             sectorSeed = 2;
-            startSector = 0;
+            startSector = 32;
 
             iconColor = Color.valueOf("#88ddff");
             atmosphereColor = Color.valueOf("#4488cc");
