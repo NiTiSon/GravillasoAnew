@@ -13,6 +13,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
     - name: Set up PATH
       run: |
         echo "${ANDROID_HOME}/build-tools/34.0.0" >> $GITHUB_PATH
@@ -25,12 +27,24 @@ jobs:
       run: |
         chmod +x ./gradlew
         ./gradlew deploy
+    - name: Generate commit list
+      run: |
+        prev=$(git describe --tags --abbrev=0 "$GITHUB_REF_NAME^" 2>/dev/null || true)
+        {
+          echo "### Commits"
+          echo
+          git log --oneline --no-decorate ${prev:+"$prev.."}HEAD
+        } > notes.md
     - name: Publish release
       env:
         GH_TOKEN: ${{ github.token }}
       run: |
+        flags=()
+        if [[ "$GITHUB_REF_NAME" == *-* ]]; then flags+=(--prerelease); fi
         gh release create "$GITHUB_REF_NAME" \
           --verify-tag \
           --generate-notes \
+          --notes-file notes.md \
+          "${flags[@]}" \
           mod/build/libs/GravillasoAnew.jar \
           mod/build/libs/GravillasoAnewDesktop.jar
