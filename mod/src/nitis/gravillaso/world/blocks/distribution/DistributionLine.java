@@ -167,12 +167,6 @@ public class DistributionLine extends Block implements Autotiler{
 
         @Override
         public void draw(){
-            /*Draw.draw(Layer.block - 0.11f, () -> {
-                Draw.shader(GrShaders.lineGloss);
-                drawLines();
-                Draw.shader();
-            });*/
-
             Draw.z(Layer.block - 0.1f);
 
             Tile from = world.tile(link);
@@ -249,7 +243,7 @@ public class DistributionLine extends Block implements Autotiler{
                     }else{ //else, only 3 bits
                         //it's hard to explain
                         //tldr: returns first index of zero
-                        int forkDir = Integer.numberOfTrailingZeros(~blendprox & 0xF) + rotation + (blendprox == 11 ? 2 : 0); // 13 is a very magic number
+                        int forkDir = Integer.numberOfTrailingZeros(~blendprox & 0xF) + rotation + (blendprox == 11 ? 2 : 0); // 11 is a very magic number
                         int left = forkDir - 1;
                         int right = forkDir + 1;
 
@@ -326,7 +320,7 @@ public class DistributionLine extends Block implements Autotiler{
                     if(line.front() == this){
                         inputs++;
                         inputMask |= 1 << i;
-                    }else if (line.back() == this){
+                    }else if (line.back() == this || this.front() == line){
                         outputs++;
                         outputMask |= 1 << i;
                     }
