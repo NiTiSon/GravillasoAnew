@@ -609,7 +609,22 @@ public class GrBlocks{
 
             shake = 1f;
             ammoPerShot = 2;
-            drawer = new DrawTurret("frost-resistant-");
+            drawer = new DrawFrostTurret(){{
+                hasShadow = false;
+
+                parts.add(
+                new RegionPart("-core"){{
+                    progress = PartProgress.warmup;
+                    moves.add(new PartMove(PartProgress.warmup, 0f, 2f, 0f));
+                }},
+                new RegionPart("-arm"){{
+                    progress = PartProgress.warmup;
+                    mirror = true;
+                    under = true;
+                    moves.add(new PartMove(PartProgress.warmup, 1f, -0.5f, -15f));
+                }}
+                );
+            }};
             shootY = -2;
             outlineColor = GrPal.outline;
             size = 3;

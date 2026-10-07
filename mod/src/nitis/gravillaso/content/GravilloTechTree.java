@@ -87,11 +87,15 @@ public class GravilloTechTree{
             });
 
             // turrets
-            node(sight, Seq.with(new Blocked()), () -> {
+            node(sight, () -> {
                 node(cobaltWall, () -> {
                    node(cobaltWallLarge, () -> {
 
                    });
+                });
+
+                node(voltum, Seq.with(new Blocked()), () -> {
+
                 });
             });
 
