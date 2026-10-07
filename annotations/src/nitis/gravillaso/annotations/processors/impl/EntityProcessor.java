@@ -20,7 +20,7 @@ import java.util.*;
  * generates an entity class in the gen package extending the vanilla base entity for the declared
  * components, and registers it in {@link mindustry.gen.EntityMapping} at class load so it gets a
  * valid class ID.
- *
+ * <p>
  * Assign the generated class to the field's {@code constructor} when the content is created:
  * <pre>{@code offense = new UnitType("offense"){{ constructor = OffenseUnit::new; }};}</pre>
  */
