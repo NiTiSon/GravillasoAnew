@@ -130,7 +130,7 @@ public class GravilloTechTree{
 
                     nodeProduce(oxygen, () -> {
                         nodeProduce(oxide, () -> {
-
+                            nodeProduce(neon, () -> {});
                         });
                     });
                 });

@@ -44,12 +44,13 @@ public class GrBlocks{
     galena, galenaWall,
     cryogenFloor, cryogenWall,
     alunite, aluniteWall,
-    purpleStone, purpleStoneCrater, purpleStoneWall;
+    purpleStone, purpleStoneCrater, purpleStoneWall,
+    moss;
     // wells and fissures
     public static Floor corundumWell, galenaWell, purpleStoneWell, shaleWell, cryogenWell;
     public static Floor corundumFissure, galenaFissure, purpleStoneFissure, shaleFissure, cryogenFissure;
-    // boulders
-    public static Block corundumBoulder, corundumCluster, galenaBoulder, purpleStoneBoulder, cryogenBoulder;
+    // props
+    public static Block corundumBoulder, corundumCluster, galenaBoulder, purpleStoneBoulder, cryogenBoulder, mossFlower;
     // ores
     // wall ores
     public static Block wallOreLead, wallOreCobalt;
@@ -123,6 +124,8 @@ public class GrBlocks{
             purpleStone.asFloor().wall = purpleStoneCrater.asFloor().wall = this;
             attributes.set(Attribute.sand, 1.25f);
         }};
+
+        moss = new Floor("moss", 3);
         // endregion
 
         // region well well well and fissures
@@ -199,6 +202,11 @@ public class GrBlocks{
         cryogenBoulder = new Prop("cryogen-boulder"){{
             variants = 2;
             cryogenFloor.asFloor().decoration = this;
+        }};
+
+        mossFlower = new TreeBlock("moss-flower"){{
+            variants = 1;
+            clipSize = 128f;
         }};
         // endregion
 

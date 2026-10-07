@@ -28,8 +28,10 @@ public class GravilloPlanetGenerator extends PlanetGenerator {
 
     public static float arkThresh = 0.28f, arkScl = 0.83f;
     public static int arkSeed = 7, arkOct = 2;
-    public static float liqThresh = 0.90f, liqScl = 70f;
+    public static float liqThresh = 0.65f, liqScl = 80f;
     public static float airThresh = 0.15f, airScl = 15;
+    public static int snowSeed = 8, snowOct = 2;
+    public static float snowScl = 15f, snowMag = 3f;
 
     Liquid[] reservoirDrop = {Liquids.oil, GrLiquids.brine};
 
@@ -38,7 +40,7 @@ public class GravilloPlanetGenerator extends PlanetGenerator {
 
     {
         baseSeed = 2;
-        //in v9 defaultLoadout is moved to the planet
+        //in v9 defaultLoadout will be moved to the planet properties
         defaultLoadout = GrLoadouts.basicBase;
     }
 
@@ -66,7 +68,7 @@ public class GravilloPlanetGenerator extends PlanetGenerator {
     Block getBlock(Vec3 position){
         float px = position.x, py = position.y, pz = position.z;
 
-        //float ice = rawTemp(position);
+        float temp = getTemperature(position);
         float height = rawHeight(position);
 
         height *= 1.2f;
@@ -74,16 +76,15 @@ public class GravilloPlanetGenerator extends PlanetGenerator {
 
         Block result = terrain[Mathf.clamp((int)(height * terrain.length), 0, terrain.length - 1)];
 
-        //if(ice < 0.3 + Math.abs(Ridged.noise3d(seed + crystalSeed, px + 4f, py + 8f, pz + 1f, crystalOct, crystalScl)) * crystalMag){
-        //    return Blocks.crystallineStone;
-        //}
-
-//        if(ice < 0.6){
-//            if(result == Blocks.rhyolite || result == Blocks.yellowStone || result == Blocks.regolith){
-//                //TODO bio(?) luminescent stuff? ice?
-//                return Blocks.carbonStone; //TODO perhaps something else.
-//            }
-//        }
+        float snowNoise = Simplex.noise3d(seed + snowSeed, snowOct, 0.7f, snowScl, px + 4f, py + 8f, pz + 1f);
+        float frost = Mathf.clamp((-0.25f - temp) / 0.4f, 0f, 1f);
+        if(temp < -0.5f - (snowNoise - 0.5f) * snowMag * frost){
+            if(result == GrBlocks.alunite || result == GrBlocks.purpleStone || result == GrBlocks.corundum){
+                return Blocks.ice;
+            }else{
+                return Blocks.snow;
+            }
+        }
 
         if(/*ice < redThresh - noArkThresh &&*/ Ridged.noise3d(seed + arkSeed, px + 2f, py + 8f, pz + 1f, arkOct, arkScl) > arkThresh){
             result = Blocks.shale;
