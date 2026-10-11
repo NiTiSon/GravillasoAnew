@@ -334,7 +334,7 @@ public class GrBlocks{
             requirements(Category.distribution, with(cobalt, 1));
             health = 120;
 
-            speed = 2f / 60f;
+            speed = 3.75f / Time.toSeconds;
             itemCapacity = 8;
         }};
 
